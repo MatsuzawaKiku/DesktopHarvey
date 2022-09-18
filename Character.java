@@ -1,6 +1,7 @@
 public class Character {
     static int X;
     static int Y;
+
     //constructor
     public Character(int x, int y){
         this.X = x;
