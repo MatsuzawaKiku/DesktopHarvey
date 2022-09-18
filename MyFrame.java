@@ -3,6 +3,10 @@
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
+import java.util.random.RandomGenerator;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
@@ -13,7 +17,7 @@ public class MyFrame{
     //Character harvey;
     static JPanel panel;
     static JLabel label;
-    static Container c;
+    Random random = new Random();
 
     /*
     constructor
@@ -22,54 +26,66 @@ public class MyFrame{
         frame = new JFrame();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         frame.setSize(screenSize);
-        //c = frame.getContentPane();
+
+        panel = new JPanel();
         label = new JLabel(); //JLabel Creation
         label.setIcon(new ImageIcon("harvey.png")); //Sets the image to be displayed as an icon
         Dimension size = label.getPreferredSize(); //Gets the size of the image
         label.setBounds(50, 30, size.width, size.height); //Sets the location of the image
+        panel.add(label);
+        frame.add(panel);
+        frame.setVisible(true);
     }
 
     //this main method opens a frame
     public static void main(String[] args) {
-        //set size
-        //this.resize(ppSimParams.xmax+OFFSET, ppSimParams.ymax+OFFSET)
-        //Toolkit t = Toolkit.getDefaultToolkit();
-        //Image i = t.getImage("harvey.png");
-        MyFrame m = new MyFrame();
-       //panel = new JPanel();
 
-        c = frame.getContentPane();
-//        label = new JLabel(); //JLabel Creation
-//        label.setIcon(new ImageIcon("harvey.png")); //Sets the image to be displayed as an icon
-        //Dimension size = label.getPreferredSize(); //Gets the size of the image
-        //label.setBounds(50, 30, size.width, size.height); //Sets the location of the image
-        //label.setOpaque(false);
-        //frame.setBackground(new Color(0, 0, 0, 0));
-        c.add(label);
+        MyFrame myFrame = new MyFrame();
 
-
-       // frame.add(new JLabel("嗨，菊酱"));
-
-        frame.addMouseListener(new MouseAdapter() {
+        panel.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
+            public void mouseDragged(MouseEvent e) {
+                super.mouseDragged(e);
                 //if (e.getX() >= label.getX() + (label.getWidth() / 2)){
-                c.add(new JLabel("嗨，菊酱"));
-                label.setLocation(e.getX(),e.getY());
+
+                //if (label != null){
+                    label.setLocation(e.getX() - label.getWidth()/2 ,e.getY() - label.getHeight()/2);
                 //}
+//                frame.add(panel);
+//                frame.setVisible(true);
+
             }
         });
-        frame.addMouseListener(new MouseAdapter() {
+        panel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseMoved(MouseEvent e) {
                 super.mouseMoved(e);
-
                 label.setLocation(e.getX(),e.getY());
+                //frame.add(panel);
+                //frame.setVisible(true);
+            }
+        });
+        panel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                JLabel message = new JLabel(message());
+                panel.setLayout(new FlowLayout());
+                panel.add(message);
+                frame.add(panel);
+                frame.setVisible(true);
+
             }
         });
 
-        frame.setVisible(true);
+
+    }
+    private static String message(){
+        ArrayList<String> database = new ArrayList(Arrays.asList("噢！嗨，菊酱。你……要问诊吗？","不要过度劳累，菊酱。这是医嘱！你的健康对我来说很重要。","我很愿意进一步了解你，菊酱。我们先把医患关系抛到一边。"
+        ,"你脸色很不错。很好"));
+        Random random = new Random();
+        int loveMes = random.nextInt(4);
+        return database.get(loveMes);
     }
 
 
