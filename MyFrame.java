@@ -8,12 +8,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 import javax.swing.*;
+import javax.swing.event.MouseInputAdapter;
 import javax.swing.event.MouseInputListener;
 
 public class MyFrame extends JFrame {
     static JLabel label;
     static Random random;
     static JPanel panel;
+    static JLabel chat;
     int x,y;
 
     /*
@@ -35,14 +37,23 @@ public class MyFrame extends JFrame {
         Dimension size = label.getPreferredSize(); //Gets the size of the image
         label.setBounds(0, 0, size.width, size.height); //Sets the location of the image
         panel.add(label);
+        chat = new JLabel(" ");
+        panel.add(chat);
+        
         label.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 x = e.getX();
                 y = e.getY();
             }
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                chat.setText(message());
+                chat.setBounds(0, 0, 100,100);
+            }
+            
         });
-
+        
         label.addMouseMotionListener(new MouseMotionListener() {
             @Override
             public void mouseDragged(MouseEvent e) {
@@ -52,11 +63,13 @@ public class MyFrame extends JFrame {
 
             @Override
             public void mouseMoved(MouseEvent e) {
+                //label.setLocation(e.getX(),e.getY());
 
             }
         });
-        this.setUndecorated(true);
-        this.setBackground(new Color(0,0,0,0));
+        
+        //this.setUndecorated(true);
+        //this.setBackground(new Color(0,0,0,0));
         this.setVisible(true);
     }
 
