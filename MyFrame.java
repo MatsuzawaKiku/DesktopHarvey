@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 import javax.swing.*;
-import javax.swing.event.MouseInputAdapter;
-import javax.swing.event.MouseInputListener;
 
 public class MyFrame extends JFrame {
     static JLabel label;
@@ -37,7 +35,7 @@ public class MyFrame extends JFrame {
         Dimension size = label.getPreferredSize(); //Gets the size of the image
         label.setBounds(0, 0, size.width, size.height); //Sets the location of the image
         panel.add(label);
-        chat = new JLabel(" ");
+        chat = new JLabel(" ",JLabel.CENTER);
         panel.add(chat);
         
         label.addMouseListener(new MouseAdapter() {
@@ -49,7 +47,8 @@ public class MyFrame extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 chat.setText(message());
-                chat.setBounds(0, 0, 100,100);
+                chat.setBounds(0, 0, 400,200);
+                chat.setLocation(label.getX(), label.getY() - 100);
             }
             
         });
@@ -68,8 +67,8 @@ public class MyFrame extends JFrame {
             }
         });
         
-        //this.setUndecorated(true);
-        //this.setBackground(new Color(0,0,0,0));
+        this.setUndecorated(true);
+        this.setBackground(new Color(0,0,0,0));
         this.setVisible(true);
     }
 
@@ -83,7 +82,7 @@ public class MyFrame extends JFrame {
 
     }
     private static String message(){
-        ArrayList<String> database = new ArrayList(Arrays.asList("噢！嗨，菊酱。你……要问诊吗？","不要过度劳累，菊酱。这是医嘱！你的健康对我来说很重要。","我很愿意进一步了解你，菊酱。我们先把医患关系抛到一边。"
+        ArrayList<String> database = new ArrayList(Arrays.asList("噢！嗨，菊酱。你……要问诊吗？","<html>不要过度劳累，菊酱。这是医嘱！<br/>你的健康对我来说很重要。</html>","<html>我很愿意进一步了解你，菊酱。<br/>我们先把医患关系抛到一边。</html>"
         ,"你脸色很不错。很好"));
         random = new Random();
         int loveMes = random.nextInt(4);
