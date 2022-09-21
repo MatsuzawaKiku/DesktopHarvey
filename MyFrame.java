@@ -31,7 +31,7 @@ public class MyFrame extends JFrame {
         this.add(panel);
 
         label = new JLabel(); //JLabel Creation
-        label.setIcon(new ImageIcon("harvey.png")); //Sets the image to be displayed as an icon
+        label.setIcon(new ImageIcon("Harvey_White Shirt.png")); //Sets the image to be displayed as an icon
         Dimension size = label.getPreferredSize(); //Gets the size of the image
         label.setBounds(0, 0, size.width, size.height); //Sets the location of the image
         panel.add(label);
